@@ -15,6 +15,24 @@ void saveAsBMP(const UncompressedImage& img, const std::string& filename) {
      * Set the pixel values of the BMP object to the pixel values of the image.
      * Write the BMP object to the file.
      */
+    BMP bmp_image(img.width, img.height);
+    for (int x = 0; x < img.width; x++) {
+        for (int y = 0; y < img.height; y++) {
+            bmp_image.set_pixel(
+                x,
+                y,
+                img.image_data[x][y].r,
+                img.image_data[x][y].g,
+                img.image_data[x][y].b);
+        }
+    } 
+    // std::string asd = "asd.bmp";
+    int n = filename.size(); 
+    // std::cout << filename << "\n";
+    char fname[n+1];
+    copy(filename.begin(), filename.end(), fname);
+    fname[n] = '\0';
+    bmp_image.write(fname);
 }
 
 UncompressedImage loadFromBMP(const std::string& filename) {
@@ -26,23 +44,24 @@ UncompressedImage loadFromBMP(const std::string& filename) {
      */
     
     int n = filename.size(); 
-    char fname[n];
+    char fname[n+1];
     copy(filename.begin(), filename.end(), fname);
+    fname[n] = '\0';
 
     BMP bmp(fname);
     UncompressedImage img;
     img.height = bmp.get_height();
     img.width = bmp.get_width();
-    img.image_data.assign(img.height, std::vector<ColorRGB>(img.width));
+    img.image_data.assign(img.width, std::vector<ColorRGB>(img.height));
     
-    for (int row = 0; row < img.height; row++) {
-        for (int col = 0; col < img.width; col++) {
+    for (int x = 0; x < img.width; x++) {
+        for (int y = 0; y < img.height; y++) {
             bmp.get_pixel(
-                row,
-                col,
-                img.image_data[row][col].r,
-                img.image_data[row][col].g,
-                img.image_data[row][col].b);
+                x,
+                y,
+                img.image_data[x][y].r,
+                img.image_data[x][y].g,
+                img.image_data[x][y].b);
         }
     }
 
