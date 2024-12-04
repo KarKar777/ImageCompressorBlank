@@ -4,3 +4,4 @@ tmp_images
 logs
 *.out
 *.o
+tmp*
