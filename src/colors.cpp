@@ -15,7 +15,7 @@ ColorRGB readFromFileStream(std::fstream& stream) {
      * We read the bytes from the stream and return the color as ColorRGB structure.
      */
     ColorRGB col;
-    std::cin >> col.r >> col.g >> col.b;
+    stream >> col.r >> col.g >> col.b;
     return col;
 }
 
@@ -30,6 +30,6 @@ int64_t colorDistanceSq(const ColorRGB& color1, const ColorRGB& color2) {
      */
     int64_t dist = (color1.r - color2.r) * (color1.r - color2.r)
                    + (color1.g - color2.g) * (color1.g - color2.g)
-                   + (color1.b - color2.b) * (color1.r - color2.b);
+                   + (color1.b - color2.b) * (color1.b - color2.b);
     return dist;
 }

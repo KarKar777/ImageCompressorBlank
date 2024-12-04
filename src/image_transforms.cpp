@@ -37,11 +37,11 @@ void edgeDetect(UncompressedImage& img) {}
 void negative(UncompressedImage& img) {
     // change the color of each id to its negative
     // negative of a color is 255 - color for each channel
-    for (int row = 0; row < img.height; row++) {
-        for (int col = 0; col < img.width; col++) {
-            img.image_data[row][col].r = 255 - img.image_data[row][col].r;
-            img.image_data[row][col].g = 255 - img.image_data[row][col].g;
-            img.image_data[row][col].b = 255 - img.image_data[row][col].b;
+    for (int x = 0; x < img.width; x++) {
+        for (int y = 0; y < img.height; y++) {
+            img.image_data[x][y].r = 255 - img.image_data[x][y].r;
+            img.image_data[x][y].g = 255 - img.image_data[x][y].g;
+            img.image_data[x][y].b = 255 - img.image_data[x][y].b;
         }
     }
 }
@@ -52,6 +52,16 @@ void toGrayscale(UncompressedImage& img) {
     // convert the image to grayscale
     // so, for each pixel, change its color to grayscale
     // if it is already grayscale, do nothing
+    if (img.is_grayscale) return;
+
+    for (int x = 0; x < img.width; x++){
+        for (int y = 0; y < img.height; y++){
+            int grscale = colorToGrayscale(img.image_data[x][y]);
+            img.image_data[x][y].r = grscale;
+            img.image_data[x][y].g = grscale;
+            img.image_data[x][y].b = grscale;
+        }
+    }
 }
 
 void toGrayscale(CompressedImage& img) {
