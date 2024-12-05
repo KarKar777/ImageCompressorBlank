@@ -1,0 +1,221 @@
+rm -rf build
+rm -rf tmp_images logs
+g++ -std=c++20  -Iinclude -Wall -Wextra -Wno-sign-compare -Wno-unused-parameter -Werror -O3 -g -c -o build/colors.o src/colors.cpp
+g++ -std=c++20  -Iinclude -Wall -Wextra -Wno-sign-compare -Wno-unused-parameter -Werror -O3 -g -c -o build/compressor_funcs.o src/compressor_funcs.cpp
+g++ -std=c++20  -Iinclude -Wall -Wextra -Wno-sign-compare -Wno-unused-parameter -Werror -O3 -g -c -o build/error_handlers.o src/error_handlers.cpp
+g++ -std=c++20  -Iinclude -Wall -Wextra -Wno-sign-compare -Wno-unused-parameter -Werror -O3 -g -c -o build/images.o src/images.cpp
+g++ -std=c++20  -Iinclude -Wall -Wextra -Wno-sign-compare -Wno-unused-parameter -Werror -O3 -g -c -o build/image_transforms.o src/image_transforms.cpp
+g++ -std=c++20  -Iinclude -Wall -Wextra -Wno-sign-compare -Wno-unused-parameter -Werror -O3 -g -c -o build/libbmp.o src/libbmp.cpp
+g++ -std=c++20  -Iinclude -Wall -Wextra -Wno-sign-compare -Wno-unused-parameter -Werror -O3 -g -c -o build/tests.o tests/tests.cpp
+g++ -std=c++20  -Iinclude -Wall -Wextra -Wno-sign-compare -Wno-unused-parameter -Werror -O3 -g -o build/test_image_compressor build/colors.o build/compressor_funcs.o build/error_handlers.o build/images.o build/image_transforms.o build/libbmp.o build/tests.o
+./build/test_image_compressor
+Awarded: 1 for BMP read
+====================
+Awarded: 1 for BMP save and read
+Awarded: 2 for Simple horizontally mirrored image
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+test_image_compressor is a Catch v2.13.10 host application.
+Run with -? for options
+
+-------------------------------------------------------------------------------
+Vertically mirrored image
+-------------------------------------------------------------------------------
+tests/tests.cpp:155
+...............................................................................
+
+tests/tests.cpp:163: FAILED:
+  REQUIRE( matchVectors( loadFile("tmp_images/kapibara_vert_flip.bmp"), loadFile("correct_images/kapibara_vert_flip.bmp")) )
+with expansion:
+  false
+
+Awarded: 2 for Simple vertically mirrored image
+-------------------------------------------------------------------------------
+Horizontally mirrored image
+-------------------------------------------------------------------------------
+tests/tests.cpp:205
+...............................................................................
+
+tests/tests.cpp:213: FAILED:
+  REQUIRE( matchVectors( loadFile("tmp_images/kapibara_hor_flip.bmp"), loadFile("correct_images/kapibara_hor_flip.bmp")) )
+with expansion:
+  false
+
+-------------------------------------------------------------------------------
+Simple grayscale conversion
+-------------------------------------------------------------------------------
+tests/tests.cpp:221
+...............................................................................
+
+tests/tests.cpp:245: FAILED:
+  REQUIRE( img.is_grayscale )
+with expansion:
+  false
+
+Awarded: 2 for Grayscale conversion
+Awarded: 2 for Simple negative conversion
+Awarded: 1 for Negative conversion
+-------------------------------------------------------------------------------
+Right angles rotation (small image + no interpolation)
+-------------------------------------------------------------------------------
+tests/tests.cpp:322
+...............................................................................
+
+tests/tests.cpp:339: FAILED:
+  REQUIRE( matchVectors( loadFile("tmp_images/seven_rotated_90.bmp"), loadFile("correct_images/rotated_images/seven_rotated_90.bmp")) )
+with expansion:
+  false
+
+-------------------------------------------------------------------------------
+Arbitrary angles rotation (small image + no interpolation)
+-------------------------------------------------------------------------------
+tests/tests.cpp:355
+...............................................................................
+
+tests/tests.cpp:368: FAILED:
+  REQUIRE( matchVectors( loadFile("tmp_images/seven_rotated_" + std::to_string(angle) + ".bmp"), loadFile( "correct_images/rotated_images/seven_rotated_" + std::to_string(angle) + ".bmp")) )
+with expansion:
+  false
+
+-------------------------------------------------------------------------------
+Right angles rotation (small image + with interpolation)
+-------------------------------------------------------------------------------
+tests/tests.cpp:378
+...............................................................................
+
+tests/tests.cpp:395: FAILED:
+  REQUIRE( matchVectors( loadFile("tmp_images/seven_rotated_90_interpolated.bmp"), loadFile("correct_images/rotated_images/seven_rotated_90_interpolated.bmp")) )
+with expansion:
+  false
+
+-------------------------------------------------------------------------------
+Arbitrary angles rotation (small image + with interpolation)
+-------------------------------------------------------------------------------
+tests/tests.cpp:411
+...............................................................................
+
+tests/tests.cpp:425: FAILED:
+  REQUIRE( matchVectors( loadFile("tmp_images/seven_rotated_" + std::to_string(angle) + "_interpolated.bmp"), loadFile( "correct_images/rotated_images/seven_rotated_" + std::to_string(angle) + "_interpolated.bmp")) )
+with expansion:
+  false
+
+-------------------------------------------------------------------------------
+Right angles rotation (large image + no interpolation)
+-------------------------------------------------------------------------------
+tests/tests.cpp:436
+...............................................................................
+
+tests/tests.cpp:453: FAILED:
+  REQUIRE( matchVectors( loadFile("tmp_images/kapibara_rotated_90.bmp"), loadFile("correct_images/rotated_images/kapibara_rotated_90.bmp")) )
+with expansion:
+  false
+
+-------------------------------------------------------------------------------
+Arbitrary angles rotation (large image + no interpolation)
+-------------------------------------------------------------------------------
+tests/tests.cpp:469
+...............................................................................
+
+tests/tests.cpp:482: FAILED:
+  REQUIRE( matchVectors( loadFile("tmp_images/kapibara_rotated_" + std::to_string(angle) + ".bmp"), loadFile( "correct_images/rotated_images/kapibara_rotated_" + std::to_string(angle) + ".bmp")) )
+with expansion:
+  false
+
+-------------------------------------------------------------------------------
+Right angles rotation (large image + with interpolation)
+-------------------------------------------------------------------------------
+tests/tests.cpp:493
+...............................................................................
+
+tests/tests.cpp:510: FAILED:
+  REQUIRE( matchVectors( loadFile("tmp_images/kapibara_rotated_90_interpolated.bmp"), loadFile("correct_images/rotated_images/kapibara_rotated_90_interpolated.bmp")) )
+with expansion:
+  false
+
+-------------------------------------------------------------------------------
+Arbitrary angles rotation (large image + with interpolation)
+-------------------------------------------------------------------------------
+tests/tests.cpp:526
+...............................................................................
+
+tests/tests.cpp:540: FAILED:
+  REQUIRE( matchVectors( loadFile("tmp_images/kapibara_rotated_" + std::to_string(angle) + "_interpolated.bmp"), loadFile( "correct_images/rotated_images/kapibara_rotated_" + std::to_string(angle) + "_interpolated.bmp")) )
+with expansion:
+  false
+
+Awarded: 2 for Identity kernel filter
+-------------------------------------------------------------------------------
+Edge detection kernel filter
+-------------------------------------------------------------------------------
+tests/tests.cpp:566
+...............................................................................
+
+tests/tests.cpp:574: FAILED:
+  REQUIRE( matchVectors( loadFile("tmp_images/kapibara_edge_detect.bmp"), loadFile("correct_images/kapibara_edge_detect.bmp")) )
+with expansion:
+  false
+
+-------------------------------------------------------------------------------
+Approximated gaussian blur kernel filter
+-------------------------------------------------------------------------------
+tests/tests.cpp:582
+...............................................................................
+
+tests/tests.cpp:594: FAILED:
+  REQUIRE( matchVectors( loadFile("tmp_images/kapibara_blur.bmp"), loadFile("correct_images/kapibara_blur.bmp")) )
+with expansion:
+  false
+
+-------------------------------------------------------------------------------
+Sharp kernel filter
+-------------------------------------------------------------------------------
+tests/tests.cpp:604
+...............................................................................
+
+tests/tests.cpp:612: FAILED:
+  REQUIRE( matchVectors( loadFile("tmp_images/kapibara_sharp.bmp"), loadFile("correct_images/kapibara_sharp.bmp")) )
+with expansion:
+  false
+
+Awarded: 1 for Color distance calculation
+-------------------------------------------------------------------------------
+Conversion to compressed image and back (with color add)
+-------------------------------------------------------------------------------
+tests/tests.cpp:640
+...............................................................................
+
+tests/tests.cpp:649: FAILED:
+  REQUIRE( comp_img.id_to_color.size() == 2 )
+with expansion:
+  0 == 2
+
+-------------------------------------------------------------------------------
+Compressed image read and write (with color add)
+-------------------------------------------------------------------------------
+tests/tests.cpp:676
+...............................................................................
+
+tests/tests.cpp:686: FAILED:
+  REQUIRE( comp_img.width == comp_img_copy.width )
+with expansion:
+  8 == 0
+
+Awarded: 6 for Conversion to compressed image and back (without color add)
+-------------------------------------------------------------------------------
+Conversion to compressed image and back (without color add, with approximation)
+-------------------------------------------------------------------------------
+tests/tests.cpp:760
+...............................................................................
+
+tests/tests.cpp:780: FAILED:
+  REQUIRE( comp_img.id_to_color[comp_img.image_data[i][j]] == color_map[1] )
+with expansion:
+  ColorRGB(10, 10, 10)
+  ==
+  ColorRGB(200, 10, 10)
+
+===============================================================================
+test cases:  27 |  10 passed | 17 failed
+assertions: 417 | 400 passed | 17 failed
+
+Total points awarded: 20
