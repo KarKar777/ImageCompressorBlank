@@ -115,6 +115,7 @@ CompressedImage toCompressed(
     cpr_img.height = img.height;
     cpr_img.image_data.assign(cpr_img.height, std::vector<uint8_t>(cpr_img.width));
     // std::cout << cpr_img.id_to_color.size() << std::endl;
+    assert(cpr_img.width == img.width);
     std::unordered_map<ColorRGB, uint8_t, ColorHash> color_to_id;
     for (auto i : color_table) {
         color_to_id[i.second] = i.first;

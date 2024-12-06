@@ -7,6 +7,7 @@
 
 #include "colors.h"
 #include "images.h"
+#include "cassert"
 
 uint8_t findClosestColorId(const ColorRGB& color, const std::map<uint8_t, ColorRGB>& colorTable);
 
